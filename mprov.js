@@ -121,9 +121,6 @@ const onLocalTracks = tracks => {
             //fs1 = document.getElementById('frontStage');
             //fs1.appendChild(videoNode);
             localTracks[i].attach(localVideo);
-            localTracks[i].attach(document.getElementById('video2'));
-            document.getElementById('video2').autoplay = true;
-            document.getElementById('video2').width = fs1.clientWidth;
             //const localVideo = document.getElementById('fs1');
             //localTracks[i].attach(localVideo);
         } else {
@@ -148,17 +145,23 @@ const onRemoteTrack = track => {
     }
     const idx = remoteTracks[participant].push(track);
     const id = participant + track.getType() + idx;
-
+    console.log('new Remote Track')
     if (track.getType() === 'video') {
-        const videoId = `${participant}video${idx}`;
-        cleanupDOM(videoId);
+        console.log('new Remote Video')
+        //const videoId = `${participant}video${idx}`;
+        //cleanupDOM(videoId);
 
-        let videoNode = document.createElement('video');
-        videoNode.id = videoId;
-        videoNode.className = 'col-6 d-inline-block py-2';
-        videoNode.autoplay = '1';
-        document.body.appendChild(videoNode);
+        //let videoNode = document.createElement('video');
+        const remoteVideo = document.getElementById('fs2');
+        const fs1 = document.getElementById('fs1');
+        remoteVideo.width = fs1.clientWidth;
+        //videoNode.id = videoId;
+        //videoNode.className = 'col-6 d-inline-block py-2';
+        remoteVideo.autoplay = '1';
+        //document.body.appendChild(videoNode);
+        track.attach(remoteVideo);
     } else {
+        console.log('new Remote Audio')
         const audioId = `${participant}audio${idx}`;
         cleanupDOM(audioId);
 
@@ -167,8 +170,8 @@ const onRemoteTrack = track => {
         audioNode.autoplay = '1';
         document.body.appendChild(audioNode);
     }
-    const remoteTrack = document.getElementById(id);
-    track.attach(remoteTrack);
+    //const remoteTrack = document.getElementById(id);
+
 };
 
 
