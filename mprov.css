@@ -1,0 +1,55 @@
+.frontstage-container {
+    display: grid;
+    column-gap: 10px;
+    grid-template-columns: auto 40% 40% auto;
+    padding: 10px;
+  }
+  
+  .frontstage-empty {
+    background-color: rgba(72, 71, 71, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    font-size: 30px;
+    text-align: center;
+  }
+  .frontstage-item {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    font-size: 30px;
+    text-align: center;
+  }
+  
+  .backline-container {
+    display: grid;
+    column-gap: 10px;
+    grid-template-columns: auto 10% 10% 10% 10% 10% 10% 10% 10% auto;
+    background-color: #2196F3;
+    padding: 10px;
+  }
+  .backline-item {
+    width: 480;
+    background-color: green;
+    border: 1px dashed rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    font-size: 30px;
+    text-align: center;
+  }
+  
+  .grid-item {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    font-size: 30px;
+    text-align: center;
+  }
+  
+  .grid-header {
+      background-color: whitesmoke;
+      border: 1px dashed;
+      grid-column-start: 1;
+      grid-column-end: 4;
+  }
+  
+  .backStream {
+      background-color: whitesmoke;
+      max-width: 1/8 ;
+  }
