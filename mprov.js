@@ -158,6 +158,7 @@ const onRemoteTrack = track => {
         //videoNode.className = 'col-6 d-inline-block py-2';
         remoteVideo.autoplay = '1';
         //document.body.appendChild(videoNode);
+        track.attach(remoteVideo);
         console.log('Remote Video Track '+id+' attached to '+remoteVideo.id);
     } else {
         const audioId = `${participant}audio${idx}`;
@@ -167,7 +168,9 @@ const onRemoteTrack = track => {
         audioNode.id = audioId;
         audioNode.autoplay = '1';
         document.body.appendChild(audioNode);
-        console.log('Remote Audio Track '+id+' attached to '+audioNode.id);
+        remoteAudio = document.getElementById(audioId);
+        track.attach(remoteAudio);
+        console.log('Remote Audio Track '+id+' attached to '+remoteAudio.id);
     }
     //const remoteTrack = document.getElementById(id);
 
