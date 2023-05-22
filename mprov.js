@@ -21,7 +21,8 @@ let releaseVersion;
 let useStage;
 
 function buildOptions(tenant, room, release) {
-    const selectedRegion = document.getElementById('regionInput').value;
+    //const selectedRegion = document.getElementById('regionInput').value;
+    selectedRegion = "default"
     const hasRegion = selectedRegion !== 'default';
     const region = hasRegion ? `${selectedRegion}.` : '';
     const stage = useStage ? 'stage.' : ''
@@ -111,13 +112,20 @@ const onLocalTracks = tracks => {
             const videoId = `localVideo${i}`;
             cleanupDOM(videoId);
 
-            let videoNode = document.createElement('video');
-            videoNode.id = videoId;
-            videoNode.className = 'col-12 pb-2';
-            videoNode.autoplay = '1';
-            document.body.appendChild(videoNode);
-            const localVideo = document.getElementById(videoId);
+            //let videoNode = document.createElement('video');
+            const localVideo = document.getElementById('video1');
+            const fs1 = document.getElementById('fs1');
+            localVideo.width = fs1.clientWidth;
+            //localVideo.className = 'frontstage-item';
+            localVideo.autoplay = '1';
+            //fs1 = document.getElementById('frontStage');
+            //fs1.appendChild(videoNode);
             localTracks[i].attach(localVideo);
+            localTracks[i].attach(document.getElementById('video2'));
+            document.getElementById('video2').autoplay = true;
+            document.getElementById('video2').width = fs1.clientWidth;
+            //const localVideo = document.getElementById('fs1');
+            //localTracks[i].attach(localVideo);
         } else {
             const audioId = `localAudio${i}`;
             cleanupDOM(audioId);
@@ -166,9 +174,9 @@ const onRemoteTrack = track => {
 
 const onConferenceJoined = () => {
     console.log('conference joined!');
-    const selectedTranscript = document.getElementById('transcriptInput').value;
-    room.setLocalParticipantProperty('requestingTranscription', true);
-    room.setLocalParticipantProperty('transcription_language', selectedTranscript);
+    //const selectedTranscript = document.getElementById('transcriptInput').value;
+    //room.setLocalParticipantProperty('requestingTranscription', true);
+    //room.setLocalParticipantProperty('transcription_language', selectedTranscript);
 };
 
 const onConferenceLeft = () => {
@@ -272,9 +280,9 @@ const connect = async () => {
     }
 
     const tenant = this.TENANT; // document.getElementById('tenantInput').value;
-    token = document.getElementById('tokenInput').value;
-    roomName = document.getElementById('roomInput').value;
-
+    //token = document.getElementById('tokenInput').value;
+    //roomName = document.getElementById('roomInput').value;
+    roomName = "mprov101"
     options = buildOptions(tenant, roomName, releaseVersion);
 
     // Initialize lib-jitsi-meet
@@ -346,7 +354,7 @@ const disconnect = async () => {
 const reload = async () => {
 
     // [testing purposes] Disconnect all participants to apply the latest release.
-    removeRemoteTracks();
+    //removeRemoteTracks();
 
     await disconnect();
     await connect();
@@ -354,7 +362,7 @@ const reload = async () => {
 
 // Leave the room and proceed to cleanup.
 const hangup = async () => {
-    removeRemoteTracks();
+    //removeRemoteTracks();
 
     if (room) {
         await room.leave();
@@ -443,9 +451,15 @@ const handleUseStageUpdate = async event => {
 window.addEventListener('beforeunload', disconnect);
 window.addEventListener('unload', disconnect);
 
+function resizeVideo(item) {
+    console.log('resizing '+item)
+    div = document.getElementById('fs1');
+    div.clientHeight = 500;
+    //div.height = div.clientWidth;
+}
 document.addEventListener('DOMContentLoaded', () => {
-    addRegionsOptions();
-    addTranscriptOptions();
+    //addRegionsOptions();
+    //addTranscriptOptions();
     const form = document.getElementById('form');
     const tenantInput = document.getElementById('tenantInput');
     const roomInput = document.getElementById('roomInput');
@@ -454,11 +468,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const goButton = document.getElementById('goButton');
     const hangupButton = document.getElementById('hangupButton');
 
-    form.addEventListener('submit', event => event.preventDefault());
+    //form.addEventListener('submit', event => event.preventDefault());
     //tenantInput.addEventListener('blur', isTenantValid);
     //roomInput.addEventListener('blur', isRoomValid);
-    releaseInput.addEventListener('blur', handleReleaseUpdate);
-    useStageInput.addEventListener('change', handleUseStageUpdate);
+    //releaseInput.addEventListener('blur', handleReleaseUpdate);
+    //useStageInput.addEventListener('change', handleUseStageUpdate);
     goButton.addEventListener('click', connect);
     hangupButton.addEventListener('click', hangup);
+
+    ['video1','video2'].forEach(resizeVideo)
+
 });
