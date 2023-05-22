@@ -147,7 +147,6 @@ const onRemoteTrack = track => {
     const id = participant + track.getType() + idx;
     console.log('new Remote Track')
     if (track.getType() === 'video') {
-        console.log('new Remote Video')
         //const videoId = `${participant}video${idx}`;
         //cleanupDOM(videoId);
 
@@ -159,9 +158,8 @@ const onRemoteTrack = track => {
         //videoNode.className = 'col-6 d-inline-block py-2';
         remoteVideo.autoplay = '1';
         //document.body.appendChild(videoNode);
-        track.attach(remoteVideo);
+        console.log('Remote Video Track '+track.id+' attached to '+remoteVideo.id);
     } else {
-        console.log('new Remote Audio')
         const audioId = `${participant}audio${idx}`;
         cleanupDOM(audioId);
 
@@ -169,6 +167,7 @@ const onRemoteTrack = track => {
         audioNode.id = audioId;
         audioNode.autoplay = '1';
         document.body.appendChild(audioNode);
+        console.log('Remote Audio Track '+track.id+' attached to '+audioNode.id);
     }
     //const remoteTrack = document.getElementById(id);
 
