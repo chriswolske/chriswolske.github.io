@@ -168,9 +168,7 @@ const onRemoteTrack = track => {
         audioNode.id = audioId;
         audioNode.autoplay = '1';
         document.body.appendChild(audioNode);
-        remoteAudio = document.getElementById(audioId);
-        track.attach(remoteAudio);
-        console.log('Remote Audio Track '+id+' attached to '+remoteAudio.id);
+        console.log('Remote Audio Track '+id+' attached to '+audioNode.id);
     }
     //const remoteTrack = document.getElementById(id);
 
